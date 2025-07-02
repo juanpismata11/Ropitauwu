@@ -1,6 +1,14 @@
+
+.container{
+  background-color: white;
+  padding: 20px;
+}
+
+
 .botonAdd{
-  background-color: #4CAF50; /* Green */
-  border: none;
+  border: 8px solid black;
+  border-radius: 12px;
+  background-color: white;
   color: white;
   padding: 15px 32px;
   text-align: center;

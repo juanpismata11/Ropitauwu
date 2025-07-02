@@ -21,8 +21,7 @@ const RopaContainer: React.FC<ContainerProps> = ({ img }) => {
       if (archivo) {
         const url = URL.createObjectURL(archivo);
         setSelectedImage(url);
-      }
-
+      }      
 
     } catch (error) {
       console.error("Error al cargar la imagen:", error);
@@ -33,7 +32,12 @@ const RopaContainer: React.FC<ContainerProps> = ({ img }) => {
 
   return (
     <div className="container">
-      <button className="botonAdd" onClick={HandleSeleccionarImagen}>{img}</button>
+      <button className="botonAdd" onClick={HandleSeleccionarImagen}>
+        <img src={"/assets/icon/plus.png"} alt="ADD" style={{ width: '50px', height: '50px' }} />
+      </button>
+      
+      <p style={{ color: "black", fontWeight:"bold" }}>CAMISETA</p>
+
       <input
         type="file"
         accept="image/*"
