@@ -4,6 +4,12 @@ import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 
+// instalation plugins
+// npm install @capacitor/core@latest @capacitor/cli@latest
+// npm install @capacitor/preferences
+// npm install @capacitor/android
+// npm install @capacitor/ios
+
 const container = document.getElementById('root');
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const root = createRoot(container!);
