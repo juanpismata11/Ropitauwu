@@ -1,18 +1,50 @@
 from fastapi import APIRouter
 from jwt_manager import create_token
 from fastapi.responses import JSONResponse
-from models.user import User
+from models.prenda import Prenda
+from fastapi.encoders import jsonable_encoder
+from config.database import Session
+from services.prenda import PrendaService
 
 
-user_router = APIRouter()
+prenda_router = APIRouter()
 
-# Ruta para poder iniciar sesion
+# Rutas para poder gets, posts y eso de prendas
 
-@user_router.post('/login')
-def login(user: User):
-    if user.username == "admin" and user.password == "admin":
-        token: str = create_token(user.dict())
-        return JSONResponse(status_code=200, content={"token": token})
-    return JSONResponse(status_code=401, content={"message": "Invalid credentials"})
+@prenda_router.get('/prendas', response_model=list[Prenda], status_code=200)
+def get_prendas():
+    db = Session()
+    result = PrendaService(db).get_prendas()
+    return JSONResponse(status_code=200, content=jsonable_encoder(result))
 
-# Rutas para poder gets, posts y eso de users
+@prenda_router.get('prendas/{id}', response_model=Prenda, status_code=200)
+def get_prenda(id: int):
+    db = Session()
+    result = PrendaService(db).get_prenda_by_id(id)
+    if not result:
+        return JSONResponse(status_code=404, content={"message": "Prenda not found"})
+    return JSONResponse(status_code=200, content=jsonable_encoder(result))
+
+@prenda_router.post('/prendas', response_model = dict, status_code=201)
+def create_prenda(prenda : Prenda):
+    db = Session()
+    PrendaService(db).create_prenda(prenda)
+    return JSONResponse(status_code=201, content={"message": "Prenda created successfully"})
+
+@prenda_router.put('/prendas/{id}', response_model = dict, status_code = 200)
+def update_prenda(id: int, prenda: Prenda):
+    db = Session()
+    result = PrendaService(db).get_prenda_by_id(id)
+    if not result:
+        return JSONResponse(status_code = 404, content = {'message': 'Prenda not found'})
+    PrendaService(db).update_prenda(id, prenda)
+    return JSONResponse(status_code=200, content={"message": "Prenda updated successfully"})
+
+@prenda_router.delete('/prendas/{id}', response_model = dict, status_code = 200)
+def delete_prenda(id: int):
+    db = Session()
+    result = PrendaService(db).get_prenda_by_id(id)
+    if not result:
+        return JSONResponse(status_code = 404, content = {'message': 'Prenda not found'})
+    PrendaService(db).delete_prenda(id)
+    return JSONResponse(status_code=200, content={"message": "Prenda deleted successfully"})
