@@ -1,6 +1,6 @@
 import React from 'react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
+import Inputs from '../components/Inputs';
 import './Tab3.css';
 
 const Tab3: React.FC = () => {
@@ -14,10 +14,13 @@ const Tab3: React.FC = () => {
       <IonContent fullscreen>
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">Tab 3</IonTitle>
+            <IonTitle size="large">Iniciar Sesion</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <ExploreContainer name="Tab 3 page" />
+        <p>¿Es tu primera vez? <br/> <u>Registrate</u></p>
+        <Inputs valor="user" nombre="Usuario" tipo ="text" />
+        <Inputs valor="password" nombre="Contraseña" tipo ="password" />
+        <button className='btn-submit'>Iniciar Sesion</button>
       </IonContent>
     </IonPage>
   );

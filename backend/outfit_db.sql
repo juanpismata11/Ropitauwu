@@ -1,0 +1,16 @@
+create database outfit_db;
+
+USE outfit_db;
+
+CREATE TABLE Prenda(
+	Id INT PRIMARY KEY AUTO_INCREMENT,
+    Nombre VARCHAR(50),
+    Img VARCHAR(300),
+    Tipo VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Usuario(
+	Id INT PRIMARY KEY AUTO_INCREMENT,
+    Username VARCHAR(50) NOT NULL UNIQUE,
+    Password VARCHAR(50) NOT NULL
+);

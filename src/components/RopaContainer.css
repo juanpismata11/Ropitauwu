@@ -1,6 +1,5 @@
 
 .container{
-  background-color: white;
   padding: 20px;
 }
 
@@ -8,7 +7,7 @@
 .botonAdd{
   border: 8px solid black;
   border-radius: 12px;
-  background-color: white;
+  background-color: #E8D1A7;
   color: white;
   padding: 15px 32px;
   text-align: center;
