@@ -21,7 +21,7 @@ class PrendaService():
   def update_prenda(self, id, prenda):
     result = self.db.query(PrendaModel).filter(PrendaModel.id == id).first()
     if not result:
-      return "Prenda not found"
+      return "Prenda not foundssss"
     result.nombre = prenda.nombre
     result.img = prenda.img
     result.tipo = prenda.tipo

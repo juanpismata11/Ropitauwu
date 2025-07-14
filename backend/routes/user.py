@@ -1,50 +1,51 @@
 from fastapi import APIRouter
-from jwt_manager import create_token
+#from jwt_manager import create_token
 from fastapi.responses import JSONResponse
-from models.prenda import Prenda
+from schema.user import User
 from fastapi.encoders import jsonable_encoder
 from config.database import Session
-from services.prenda import PrendaService
+from services.user import UserService
+from typing import List
 
 
-prenda_router = APIRouter()
+user_router = APIRouter()
 
-# Rutas para poder gets, posts y eso de prendas
+# Rutas para poder gets, posts y eso de users
 
-@prenda_router.get('/prendas', response_model=list[Prenda], status_code=200)
-def get_prendas():
+@user_router.get('/users', response_model=List[User], status_code=200)
+def get_users():
     db = Session()
-    result = PrendaService(db).get_prendas()
+    result = UserService(db).get_users()
     return JSONResponse(status_code=200, content=jsonable_encoder(result))
 
-@prenda_router.get('prendas/{id}', response_model=Prenda, status_code=200)
-def get_prenda(id: int):
+@user_router.get('/users/{id}', response_model=User, status_code=200)
+def get_user(id: int):
     db = Session()
-    result = PrendaService(db).get_prenda_by_id(id)
+    result = UserService(db).get_user_by_id(id)
     if not result:
-        return JSONResponse(status_code=404, content={"message": "Prenda not found"})
+        return JSONResponse(status_code=404, content={"message": "User not found"})
     return JSONResponse(status_code=200, content=jsonable_encoder(result))
 
-@prenda_router.post('/prendas', response_model = dict, status_code=201)
-def create_prenda(prenda : Prenda):
+@user_router.post('/users', response_model = dict, status_code=201)
+def create_user(user : User):
     db = Session()
-    PrendaService(db).create_prenda(prenda)
-    return JSONResponse(status_code=201, content={"message": "Prenda created successfully"})
+    UserService(db).create_user(user)
+    return JSONResponse(status_code=201, content={"message": "User created successfully"})
 
-@prenda_router.put('/prendas/{id}', response_model = dict, status_code = 200)
-def update_prenda(id: int, prenda: Prenda):
+@user_router.put('/users/{id}', response_model = dict, status_code = 200)
+def update_user(id: int, user: User):
     db = Session()
-    result = PrendaService(db).get_prenda_by_id(id)
+    result = UserService(db).get_user_by_id(id)
     if not result:
-        return JSONResponse(status_code = 404, content = {'message': 'Prenda not found'})
-    PrendaService(db).update_prenda(id, prenda)
-    return JSONResponse(status_code=200, content={"message": "Prenda updated successfully"})
+        return JSONResponse(status_code = 404, content = {'message': 'User not found'})
+    UserService(db).update_user(id, user)
+    return JSONResponse(status_code=200, content={"message": "User updated successfully"})
 
-@prenda_router.delete('/prendas/{id}', response_model = dict, status_code = 200)
-def delete_prenda(id: int):
+@user_router.delete('/users/{id}', response_model = dict, status_code = 200)
+def delete_user(id: int):
     db = Session()
-    result = PrendaService(db).get_prenda_by_id(id)
+    result = UserService(db).get_user_by_id(id)
     if not result:
-        return JSONResponse(status_code = 404, content = {'message': 'Prenda not found'})
-    PrendaService(db).delete_prenda(id)
-    return JSONResponse(status_code=200, content={"message": "Prenda deleted successfully"})
+        return JSONResponse(status_code = 404, content = {'message': 'User not found'})
+    UserService(db).delete_user(id)
+    return JSONResponse(status_code=200, content={"message": "User deleted successfully"})
