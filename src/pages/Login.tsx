@@ -1,9 +1,10 @@
 import React from 'react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import Inputs from '../components/Inputs';
-import './Tab3.css';
+import './Login.css';
+import { getUserService } from '../services/user';
 
-const Tab3: React.FC = () => {
+const Login: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
@@ -20,10 +21,10 @@ const Tab3: React.FC = () => {
         <p>¿Es tu primera vez? <br/> <u>Registrate</u></p>
         <Inputs valor="user" nombre="Usuario" tipo ="text" />
         <Inputs valor="password" nombre="Contraseña" tipo ="password" />
-        <button className='btn-submit'>Iniciar Sesion</button>
+        <button onClick={getUserService} className='btn-submit'>Iniciar Sesion</button>
       </IonContent>
     </IonPage>
   );
 };
 
-export default Tab3;
+export default Login;
