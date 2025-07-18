@@ -18,10 +18,10 @@ def get_users():
     result = UserService(db).get_users()
     return JSONResponse(status_code=200, content=jsonable_encoder(result))
 
-@user_router.get('/users/{id}', response_model=User, status_code=200)
-def get_user(id: int):
+@user_router.get('/users/{username}', response_model=User, status_code=200)
+def get_user(username: str):
     db = Session()
-    result = UserService(db).get_user_by_id(id)
+    result = UserService(db).get_user_by_username(username)
     if not result:
         return JSONResponse(status_code=404, content={"message": "User not found"})
     return JSONResponse(status_code=200, content=jsonable_encoder(result))

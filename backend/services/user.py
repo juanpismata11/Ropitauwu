@@ -8,8 +8,8 @@ class UserService():
     result = self.db.query(UserModel).all()
     return result
   
-  def get_user_by_id(self, id):
-    result = self.db.query(UserModel).filter(UserModel.id == id).first()
+  def get_user_by_username(self, username):
+    result = self.db.query(UserModel).filter(UserModel.username == username).first()
     return result
   
   def create_user(self, user):
